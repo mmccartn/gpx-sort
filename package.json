@@ -1,0 +1,16 @@
+{
+  "name": "gpx-sort",
+  "version": "0.1.0",
+  "description": "Sort GPX track points by date",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt McCartney",
+  "license": "MIT",
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "xml2js": "^0.4.19"
+  }
+}
