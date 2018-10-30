@@ -8,18 +8,15 @@ const xml2js = require('xml2js')
 const APP_NAME = 'GPX Sort'
 
 const gpxSort = async (input, output) => {
-    const parser = new xml2js.Parser()
     const data = fs.readFileSync(path.join(__dirname, input))
+    const parser = new xml2js.Parser()
     const result = await new Promise((resolve, reject) => {
-        parser.parseString(data, (err, result) => {
-            if (err) {
-                reject(err)
-            }
-            resolve(result)
-        })
+        parser.parseString(data, (err, res) => err ? reject(err) : resolve(res))
     })
-    console.dir(result)
-    return result
+    result.gpx.trk[0].trkseg[0].trkpt = result.gpx.trk[0].trkseg[0].trkpt.sort(
+        (ptA, ptB) => Date.parse(ptA.time[0]) - Date.parse(ptB.time[0])
+    )
+    fs.writeFileSync(output, (new xml2js.Builder()).buildObject(result))
 }
 
 if (require.main === module) {
